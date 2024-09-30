@@ -107,12 +107,12 @@ This project is licensed under the MIT license. See the LICENSE file for more in
 
 ## Related Projects
 
-*   [Axum](https://axum.rs/): A fast and modular web framework for Rust.
-*   [Tera](https://github.com/keffing/tera): A fast, template rendering engine for Rust.
-*   [Tower Livereload](https://github.com/tower-livereload/livereload): A live reloading layer for Tower.
+*   [Axum](https://docs.rs/axum/latest/axum/): A fast and modular web framework for Rust.
+*   [Tera](https://github.com/Keats/tera): A fast, template rendering engine for Rust.
+*   [Tower Livereload](https://github.com/leotaku/tower-livereload): A live reloading layer for Tower.
 
 Where to learn more:
 
 *   Rust documentation: <https://doc.rust-lang.org/>
-*   Axum documentation: <https://axum.rs/docs/>
-*   Tera documentation: <https://keffing.github.io/tera/>
+*   Axum documentation: <https://docs.rs/axum/latest/axum/>
+*   Tera documentation: <https://keats.github.io/tera/docs/>
