@@ -1,0 +1,9 @@
+[package]
+name = "tera-hot-reload"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tera-template-derive = { path = "./src/tera-template-derive" }
+notify-debouncer-full = "0.3.1"
+tower-livereload = "0.9.3"
