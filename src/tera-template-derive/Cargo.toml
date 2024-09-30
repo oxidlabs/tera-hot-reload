@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-tera = { version = "1", default-features = false }
+tera = { version = "1.20.0", default-features = false }
 syn = "2.0.72"
 quote = "1.0.37"
 proc-macro2 = "1.0.86"

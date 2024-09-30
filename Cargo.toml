@@ -7,3 +7,4 @@ edition = "2021"
 tera-template-derive = { path = "./src/tera-template-derive" }
 notify-debouncer-full = "0.3.1"
 tower-livereload = "0.9.3"
+tera = { version = "1.20.0", default-features = false }
