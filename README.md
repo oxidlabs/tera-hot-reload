@@ -87,23 +87,19 @@ axum::serve(listener, app).await.unwrap();
 This will start a TCP server on port 3000 that serves the Axum application.
 
 ## Troubleshooting
-------------------
 
 *   Make sure to add any necessary folders in the `watch()` function if used
 *   Check that your template files are correctly formatted according to the Tera documentation.
 
 ## Contributing
-------------
 
 To contribute to this project, please create a new issue or pull request on this repository. We welcome any suggestions, bug fixes, and feature requests!
 
 ## License
--------
 
 This project is licensed under the MIT license. See the LICENSE file for more information.
 
 ## Related Projects
------------------
 
 *   [Axum](https://axum.rs/): A fast and modular web framework for Rust.
 *   [Tera](https://github.com/keffing/tera): A fast, template rendering engine for Rust.
