@@ -29,7 +29,7 @@ async fn main() {
 }
 
 #[derive(TeraTemplate, Serialize)]
-#[template=(path="index.html")] // this looks for index.html in the templates folder
+#[template(path="index.html")] // this looks for index.html in the templates folder
 struct HelloTemplate {
     name: String,
     greeting: String,
