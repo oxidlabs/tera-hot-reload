@@ -673,13 +673,15 @@ name = "tera-hot-reload"
 version = "0.2.0"
 dependencies = [
  "notify-debouncer-full",
- "tera-template-derive",
+ "tera-template-macro",
  "tower-livereload",
 ]
 
 [[package]]
-name = "tera-template-derive"
+name = "tera-template-macro"
 version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cbebb9146b4a66ba22b22c3c77e3049d90186ccc6bfcce7237b6308083b8bd64"
 dependencies = [
  "proc-macro2",
  "quote",
