@@ -5,7 +5,7 @@ authors = ["Tebarem"]
 edition = "2021"
 description = "Hot Reload for Tera templates"
 license = "MIT"
-keywords = ["tera", "hot reload", "templating", "html"]
+keywords = ["tera", "hot-reload", "reloading", "templating", "html"]
 
 [dependencies]
 tera-template-macro = "0.1.0" 
