@@ -13,6 +13,9 @@ use notify_debouncer_full::notify::{
     Watcher
 };
 
+pub use tower_livereload::LiveReloadLayer;
+pub use tera_template_derive::TeraTemplate;
+
 pub fn watch<F>(reloader: F, delay: Duration, dirs: Vec<&'static str>) -> Debouncer<ReadDirectoryChangesWatcher, FileIdMap>
 where
     F: Fn() + Send + 'static,
