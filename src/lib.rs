@@ -25,8 +25,7 @@ where
         None,
         move |result: DebounceEventResult| match result {
             Ok(events) => events.iter().for_each(|event| match event.kind {
-                EventKind::Create(_) => {
-                    println!("File created: {:?}", event);
+                EventKind::Create(_) | EventKind::Modify(_) | EventKind::Remove(_) => {
                     reloader();
                 }
                 _ => {}
