@@ -1,5 +1,4 @@
 # Tera Template Derive
-=======================
 
 A Rust crate for generating Tera templates with hot reloading capabilities.
 
@@ -64,6 +63,20 @@ async fn main() {
 ```
 
 This will create an Axum application that serves a `root` function with hot reloading enabled.
+
+### Reloading templates
+
+To watch for any folder changes in your template directory and reload them automatically when they are modified, use the following code:
+
+```rust
+// after adding the LiveReloadLayer to your Axum application
+
+let _debouncer = watch(
+    move || reloader.reload(),
+    Duration::from_millis(10), // if you have tailwindcss and your machine is slow, you can increase this value
+    vec!["./templates"] // this is now listening for changes in the templates folder add any other folders you want to watch this can be your folder that holds your JS files or CSS or whatever you are serving in your app
+)
+```
 
 ### Serving the application
 
