@@ -4,7 +4,11 @@ A Rust crate for generating Tera templates with hot reloading capabilities.
 
 ## Overview
 
-Tera is a fast, template rendering engine that allows you to separate your HTML templates from your application code. This crate provides a simple way to derive the `TeraTemplate` trait for your struct types, making it easy to integrate Tera into your existing Rust project.
+Tera is a fast, template rendering engine that allows you to separate your HTML templates from your application code. This crate provides a simple way to derive the `TeraTemplate` trait for your struct types, making it easy to integrate Tera into your existing Rust project. 
+
+### Disclaimer
+
+This hot-reload feature is not for compiling your Rust code. It is for generating and serving Tera templates and static files.
 
 ## Features
 
