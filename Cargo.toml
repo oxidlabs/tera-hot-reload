@@ -5,6 +5,6 @@ authors = ["Tebarem"]
 edition = "2021"
 
 [dependencies]
-tera-template-derive = { path = "./src/tera-template-derive" }
+tera-template-derive = { path = "./src/tera-template-derive", version = "0.1.0" }
 notify-debouncer-full = "0.3.1"
 tower-livereload = "0.9.3"
