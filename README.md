@@ -22,6 +22,8 @@ To add this crate to your project, run the following command:
 cargo add tera-hot-reload
 ```
 
+Make sure you also have the [tera](https://keats.github.io/tera/docs/) crate in your project's dependencies.
+
 ### Deriving a Tera template from a struct type
 
 To derive a Tera template from a simple struct type, use the `#[derive(TeraTemplate)]` macro:

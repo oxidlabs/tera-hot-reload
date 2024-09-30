@@ -673,7 +673,6 @@ name = "tera-hot-reload"
 version = "0.2.0"
 dependencies = [
  "notify-debouncer-full",
- "tera",
  "tera-template-derive",
  "tower-livereload",
 ]
