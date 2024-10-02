@@ -7,7 +7,7 @@ use notify_debouncer_full::{
     new_debouncer,
 };
 use notify_debouncer_full::notify::{
-    ReadDirectoryChangesWatcher, 
+    RecommendedWatcher, 
     EventKind, 
     RecursiveMode, 
     Watcher
@@ -16,7 +16,27 @@ use notify_debouncer_full::notify::{
 pub use tower_livereload::LiveReloadLayer;
 pub use tera_template_macro::TeraTemplate;
 
-pub fn watch<F>(reloader: F, delay: Duration, dirs: Vec<&'static str>) -> Debouncer<ReadDirectoryChangesWatcher, FileIdMap>
+/// Watches the specified directories for changes and triggers the provided reloader function when a file is created, modified or deleted.
+///
+/// # Arguments
+///
+/// * `reloader`: A closure that will be executed when a change is detected. This closure should return void (`()`) and be Send-compatible.
+/// * `delay`: The minimum duration between checks for changes on the watched directories.
+/// * `dirs`: An array of directory paths to watch for changes. Each path may be absolute or relative, but must exist on the system's file system.
+///
+/// # Returns
+///
+/// A Debouncer that will trigger the reloader function at regular intervals, and watch the specified directories for changes.
+/// 
+/// # Examples
+/// 
+/// ```
+/// let livereload = LiveReloadLayer::new();
+/// let reload = livereload.reloader();
+/// 
+/// let _debouncer = watch(move || reloader.reload(), Duration::from_millis(10), vec!["./src"]);
+/// ```
+pub fn watch<F>(reloader: F, delay: Duration, dirs: Vec<&'static str>) -> Debouncer<RecommendedWatcher, FileIdMap>
 where
     F: Fn() + Send + 'static,
 {
