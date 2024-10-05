@@ -36,9 +36,15 @@ pub use tera_template_macro::TeraTemplate;
 /// 
 /// let _debouncer = watch(move || reloader.reload(), Duration::from_millis(10), vec!["./src"]);
 /// ```
-pub fn watch<F>(reloader: F, delay: Duration, dirs: Vec<&'static str>) -> Debouncer<RecommendedWatcher, FileIdMap>
+pub fn watch<F, D, P>(
+    reloader: F, 
+    delay: Duration, 
+    dirs: D
+) -> Debouncer<RecommendedWatcher, FileIdMap>
 where
     F: Fn() + Send + 'static,
+    D: IntoIterator<Item = P>,
+    P: AsRef<Path>,
 {
     let mut debouncer = new_debouncer(
         delay,
@@ -55,10 +61,10 @@ where
     )
     .unwrap();
 
-    for dir in &dirs {
+    for dir in dirs.into_iter() {
         debouncer
             .watcher()
-            .watch(Path::new(dir), RecursiveMode::Recursive)
+            .watch(dir.as_ref(), RecursiveMode::Recursive)
             .unwrap();
     }
 
