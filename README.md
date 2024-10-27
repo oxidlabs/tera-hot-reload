@@ -51,6 +51,12 @@ To create an Axum application with hot reloading, use the following code:
 
 ```rust
 use axum::Router;
+use std::sync::{LazyLock, RwLock};
+use tera::Tera;
+
+pub static TERA: LazyLock<RwLock<Tera>> = LazyLock::new(|| {
+    RwLock::new(tera::Tera::new("templates/**/*").expect("Failed to create Tera instance"))
+});
 
 #[tokio::main]
 async fn main() {
@@ -75,7 +81,10 @@ To watch for any folder changes in your template directory and reload them autom
 // after adding the LiveReloadLayer to your Axum application
 
 let _debouncer = watch(
-    move || reloader.reload(),
+    move || {
+        let _ = TERA.write().unwrap().full_reload();
+        reloader.reload();
+    },
     Duration::from_millis(10), // if you have tailwindcss and your machine is slow, you can increase this value
     vec!["./templates"] // this is now listening for changes in the templates folder add any other folders you want to watch this can be your folder that holds your JS files or CSS or whatever you are serving in your app
 )

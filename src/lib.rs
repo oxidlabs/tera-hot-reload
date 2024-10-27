@@ -1,20 +1,10 @@
-use std::time::Duration;
+use notify_debouncer_full::notify::{EventKind, RecommendedWatcher, RecursiveMode};
+use notify_debouncer_full::{new_debouncer, DebounceEventResult, Debouncer, FileIdMap};
 use std::path::Path;
-use notify_debouncer_full::{
-    Debouncer,
-    DebounceEventResult,
-    FileIdMap,
-    new_debouncer,
-};
-use notify_debouncer_full::notify::{
-    RecommendedWatcher, 
-    EventKind, 
-    RecursiveMode, 
-    Watcher
-};
+use std::time::Duration;
 
-pub use tower_livereload::LiveReloadLayer;
 pub use tera_template_macro::TeraTemplate;
+pub use tower_livereload::LiveReloadLayer;
 
 /// Watches the specified directories for changes and triggers the provided reloader function when a file is created, modified or deleted.
 ///
@@ -27,19 +17,19 @@ pub use tera_template_macro::TeraTemplate;
 /// # Returns
 ///
 /// A Debouncer that will trigger the reloader function at regular intervals, and watch the specified directories for changes.
-/// 
+///
 /// # Examples
-/// 
+///
 /// ```
 /// let livereload = LiveReloadLayer::new();
 /// let reload = livereload.reloader();
-/// 
+///
 /// let _debouncer = watch(move || reloader.reload(), Duration::from_millis(10), vec!["./src"]);
 /// ```
 pub fn watch<F, D, P>(
-    reloader: F, 
-    delay: Duration, 
-    dirs: D
+    reloader: F,
+    delay: Duration,
+    dirs: D,
 ) -> Debouncer<RecommendedWatcher, FileIdMap>
 where
     F: Fn() + Send + 'static,
@@ -63,7 +53,6 @@ where
 
     for dir in dirs.into_iter() {
         debouncer
-            .watcher()
             .watch(dir.as_ref(), RecursiveMode::Recursive)
             .unwrap();
     }

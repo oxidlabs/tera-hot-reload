@@ -9,6 +9,13 @@ use serde::Serialize;
 use tera_hot_reload::{watch, LiveReloadLayer, TeraTemplate};
 use tower_http::services::ServeDir;
 
+use std::sync::{LazyLock, RwLock};
+use tera::Tera;
+
+pub static TERA: LazyLock<RwLock<Tera>> = LazyLock::new(|| {
+    RwLock::new(tera::Tera::new("templates/**/*").expect("Failed to create Tera instance"))
+});
+
 #[tokio::main]
 async fn main() {
 
@@ -21,7 +28,10 @@ async fn main() {
         .layer(livereload);
 
     let _debouncer = watch(
-        move || reloader.reload(),
+        move || {
+            let _ = TERA.write().unwrap().full_reload();
+            reloader.reload();
+        },
         Duration::from_millis(10),
         vec!["./templates", "./public"],
     );
@@ -46,5 +56,5 @@ async fn index() -> impl IntoResponse {
         greeting: "Hello".to_string(),
     };
 
-    Html(context.render())
+    Html(context.render(TERA.read().unwrap().clone()))
 }
