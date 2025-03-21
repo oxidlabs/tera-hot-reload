@@ -1,5 +1,5 @@
-use notify_debouncer_full::notify::{EventKind, RecommendedWatcher, RecursiveMode};
-use notify_debouncer_full::{new_debouncer, DebounceEventResult, Debouncer, FileIdMap};
+use notify_debouncer_full::notify::{ EventKind, RecommendedWatcher, RecursiveMode };
+use notify_debouncer_full::{ new_debouncer, DebounceEventResult, Debouncer, RecommendedCache };
 use std::path::Path;
 use std::time::Duration;
 
@@ -29,32 +29,28 @@ pub use tower_livereload::LiveReloadLayer;
 pub fn watch<F, D, P>(
     reloader: F,
     delay: Duration,
-    dirs: D,
-) -> Debouncer<RecommendedWatcher, FileIdMap>
-where
-    F: Fn() + Send + 'static,
-    D: IntoIterator<Item = P>,
-    P: AsRef<Path>,
+    dirs: D
+)
+    -> Debouncer<RecommendedWatcher, RecommendedCache>
+    where F: Fn() + Send + 'static, D: IntoIterator<Item = P>, P: AsRef<Path>
 {
-    let mut debouncer = new_debouncer(
-        delay,
-        None,
-        move |result: DebounceEventResult| match result {
-            Ok(events) => events.iter().for_each(|event| match event.kind {
-                EventKind::Create(_) | EventKind::Modify(_) | EventKind::Remove(_) => {
-                    reloader();
-                }
-                _ => {}
-            }),
+    let mut debouncer = new_debouncer(delay, None, move |result: DebounceEventResult| {
+        match result {
+            Ok(events) =>
+                events.iter().for_each(|event| {
+                    match event.kind {
+                        EventKind::Create(_) | EventKind::Modify(_) | EventKind::Remove(_) => {
+                            reloader();
+                        }
+                        _ => {}
+                    }
+                }),
             Err(errors) => errors.iter().for_each(|error| println!("{error:?}")),
-        },
-    )
-    .unwrap();
+        }
+    }).unwrap();
 
     for dir in dirs.into_iter() {
-        debouncer
-            .watch(dir.as_ref(), RecursiveMode::Recursive)
-            .unwrap();
+        debouncer.watch(dir.as_ref(), RecursiveMode::Recursive).unwrap();
     }
 
     debouncer
