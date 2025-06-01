@@ -10,6 +10,6 @@ repository = "https://github.com/oxidlabs/tera-hot-reload"
 homepage = "https://github.com/oxidlabs/tera-hot-reload"
 
 [dependencies]
-tera-template-macro = "0.1.3" 
+tera-template-macro = "0.1.5" 
 notify-debouncer-full = "0.4.0"
 tower-livereload = "0.9.3"

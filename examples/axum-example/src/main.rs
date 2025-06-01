@@ -56,5 +56,5 @@ async fn index() -> impl IntoResponse {
         greeting: "Hello".to_string(),
     };
 
-    Html(context.render(TERA.read().unwrap().clone()))
+    Html(context.render(&TERA.read().unwrap()))
 }
