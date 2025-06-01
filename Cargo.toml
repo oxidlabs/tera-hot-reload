@@ -1,6 +1,6 @@
 [package]
 name = "tera-hot-reload"
-version = "0.2.4"
+version = "0.2.5"
 authors = ["Tebarem"]
 edition = "2021"
 description = "Hot Reload for Tera templates"
@@ -10,6 +10,6 @@ repository = "https://github.com/oxidlabs/tera-hot-reload"
 homepage = "https://github.com/oxidlabs/tera-hot-reload"
 
 [dependencies]
-tera-template-macro = "0.1.5" 
+tera-template-macro = "0.1.4" 
 notify-debouncer-full = "0.4.0"
 tower-livereload = "0.9.3"
